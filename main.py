@@ -49,6 +49,8 @@ def update_listbox():
     listbox.delete(0, tk.END)
     for item in tasks:
         listbox.insert(tk.END, item)
+    listbox.selection_set(0)
+    listbox.activate(0)
 
 def create_popup():
     #popup creation and title
