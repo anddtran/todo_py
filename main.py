@@ -42,10 +42,23 @@ def on_keypress(event):
             deletetask()
         except IndexError:  # if no item is selected or list is empty
             messagebox.showinfo('Error', 'No task selected to delete!')
-    elif event.keysym == 'Return':
-        create_popup()
     elif event.keysym == 'Escape':
         root.destroy()
+
+def on_keypresstask(event):
+    if event.keysym == 'BackSpace':
+        try:
+            new_task_entry.delete(0, 'end')
+        except IndexError:  # if no item is selected or list is empty
+            messagebox.showinfo('Error', 'No task selected to delete!')
+    elif event.keysym == 'Escape':
+        root.destroy()
+    elif event.keysym =='Return':
+        add_task()
+
+def next_widget(self, event):
+        event.widget.tk_focusNext().focus()
+        return "break"
 
 def update_listbox():
     listbox.delete(0, tk.END)
@@ -54,57 +67,62 @@ def update_listbox():
     listbox.selection_set(0)
     listbox.activate(0)
 
-def create_popup():
-    #popup creation and title
-    global popup, new_task_entry
-    popup = tk.Toplevel()
-    popup.title('Add Item')
-
-    #popup task entry field with focus
-    new_task_entry = tk.Entry(popup)
-    new_task_entry.pack()
-    new_task_entry.focus()
-    new_task_entry.bind("<Return>",add_task)
-
-    popup.bind("<Escape>", lambda event: popup.destroy())
-
-    #add button for those who like buttons
-    confirm_button = tk.Button(popup, text="Add", command=add_task)
-    confirm_button.pack()
-
 if __name__ == '__main__':
     # Create the window
     root = tk.Tk()
     root.title('Todo')
-    root.geometry('400x600')  # Consider making the window a bit larger if needed
+    root.geometry('400x600') 
     root.resizable(False, False)
 
+    #topframe
+    topframe = Frame(root, width='400', height='125', bg='#32405b')
+    topframe.pack()
+
     # Background image
-    bgimage = Image.open('/Users/andrewtran/repos/todolist_app/ds.png')
+    bgimage = Image.open('ds.png')
     bgresize = bgimage.resize((72, 72), Image.NEAREST)
     tkimage = ImageTk.PhotoImage(bgresize)
     tkbg = tk.Label(root, image=tkimage)
-    tkbg.place(relx=0.5, rely=0.09, anchor='center')  # Adjusted position
+    tkbg.place(relx=0.5, rely=0.09, anchor='center')  
 
     # Title
-    label = tk.Label(root, text='List')
-    label.place(relx=0.5, rely=0.18, anchor='center')  # Moved down slightly
-    
-    # Listbox widget
-    listbox = tk.Listbox(root, width=30, height=25)  # Reduced height to fit buttons
-    listbox.place(relx=0.5, rely=0.56, anchor='center')  # Center of the window
+    label = tk.Label(root, text='To-Do List', font= 'arial 20 bold', fg= 'white', bg='#32405b')
+    label.place(relx=0.5, rely=0.18, anchor='center')
 
-    listbox.focus_set()
+    #entry frame
+    entryframe = Frame(root, width='350', height='20', bg='white', pady=20)
+    entryframe.pack(pady=6)
+    new_task_entry = tk.Entry(entryframe, width=42, fg='black', bg='white', justify='center')
+    new_task_entry.place(relx=0.5, rely=0.5, anchor='center')
+    new_task_entry.focus()
+    new_task_entry.bind('<Key>', on_keypresstask)
+    new_task_entry.bind('Tab', next_widget)
+
+    #listbox frame
+    listboxframe = Frame(root, bd=3, width='330', height='400', bg='white')
+    listboxframe.pack()
+
+    # Listbox widget
+    listbox = tk.Listbox(listboxframe, width=40, height=23, bg='#32405b') 
+    listbox.pack(side=LEFT, fill=BOTH) # Center of the window
     listbox.bind("<Key>", on_keypress)
-    readtasks()
-    update_listbox()
+    listbox.bind('Tab', next_widget)
+
+    #scrollbar
+    #scroll = Scrollbar(listboxframe)
+    #scroll.pack(side=RIGHT, fill=BOTH)
+    #listbox.config(yscrollcommand=scroll.set)
+    #scroll.config(command=listbox.yview)
 
     # Add task button
-    button = tk.Button(root, text='Add Task', command=create_popup)
+    button = tk.Button(root, text='Add Task', command=add_task)
     button.place(relx=0.3, rely=0.955, anchor='center')  # Moved up slightly
 
     # Add delete button
     deleteitem = tk.Button(root, text='Delete', command=deletetask)
     deleteitem.place(relx=0.7, rely=0.955, anchor='center')  # Moved up slightly
+
+    readtasks()
+    update_listbox()
 
     root.mainloop()
