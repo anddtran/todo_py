@@ -80,7 +80,7 @@ if __name__ == '__main__':
     root.resizable(False, False)
 
     # Background image
-    bgimage = Image.open('ds.png')
+    bgimage = Image.open('/Users/andrewtran/repos/todolist_app/ds.png')
     bgresize = bgimage.resize((72, 72), Image.NEAREST)
     tkimage = ImageTk.PhotoImage(bgresize)
     tkbg = tk.Label(root, image=tkimage)
