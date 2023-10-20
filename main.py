@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     # Background image
     bgimage = Image.open('ds.png')
-    bgresize = bgimage.resize((50, 50), Image.NEAREST)
+    bgresize = bgimage.resize((72, 72), Image.NEAREST)
     tkimage = ImageTk.PhotoImage(bgresize)
     tkbg = tk.Label(root, image=tkimage)
     tkbg.place(relx=0.5, rely=0.1, anchor='center')  # Adjusted position
