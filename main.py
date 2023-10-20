@@ -87,7 +87,7 @@ if __name__ == '__main__':
     tkbg.place(relx=0.5, rely=0.1, anchor='center')  # Adjusted position
 
     # Title
-    label = tk.Label(root, text='List', fg= 'white')
+    label = tk.Label(root, text='List')
     label.place(relx=0.5, rely=0.18, anchor='center')  # Moved down slightly
     
 
