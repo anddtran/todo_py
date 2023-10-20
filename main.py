@@ -84,16 +84,15 @@ if __name__ == '__main__':
     bgresize = bgimage.resize((72, 72), Image.NEAREST)
     tkimage = ImageTk.PhotoImage(bgresize)
     tkbg = tk.Label(root, image=tkimage)
-    tkbg.place(relx=0.5, rely=0.1, anchor='center')  # Adjusted position
+    tkbg.place(relx=0.5, rely=0.09, anchor='center')  # Adjusted position
 
     # Title
     label = tk.Label(root, text='List')
     label.place(relx=0.5, rely=0.18, anchor='center')  # Moved down slightly
     
-
     # Listbox widget
-    listbox = tk.Listbox(root, width=30, height=20)  # Reduced height to fit buttons
-    listbox.place(relx=0.5, rely=0.5, anchor='center')  # Center of the window
+    listbox = tk.Listbox(root, width=30, height=25)  # Reduced height to fit buttons
+    listbox.place(relx=0.5, rely=0.56, anchor='center')  # Center of the window
 
     listbox.focus_set()
     listbox.bind("<Key>", on_keypress)
@@ -102,11 +101,10 @@ if __name__ == '__main__':
 
     # Add task button
     button = tk.Button(root, text='Add Task', command=create_popup)
-    button.place(relx=0.3, rely=0.85, anchor='center')  # Moved up slightly
+    button.place(relx=0.3, rely=0.955, anchor='center')  # Moved up slightly
 
     # Add delete button
     deleteitem = tk.Button(root, text='Delete', command=deletetask)
-    deleteitem.place(relx=0.7, rely=0.85, anchor='center')  # Moved up slightly
+    deleteitem.place(relx=0.7, rely=0.955, anchor='center')  # Moved up slightly
 
-    label.lift()
     root.mainloop()
