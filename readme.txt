@@ -1,7 +1,7 @@
-Press enter to open pop up to add task. Press enter to add task in that window.
+Press enter to open pop up to add task to entry box. 
 
 You can press backspace to delete any highlighted task. Arrow keys can navigate through list. 
 
-Escape key can close popup window and the main window. 
+Escape key can close the main window. Tab to switch between entry box and list box
 
-All tasks will be saved to tasks.txt
+All tasks will be saved to tasks.txt to be accessed next time. 
